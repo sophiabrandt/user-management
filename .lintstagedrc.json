@@ -1,0 +1,4 @@
+{
+  "*.ts": ["pnpm run lint:fix", "pnpm run prettier:write"],
+  "*.{html,css,js,json,md}": "pnpm run prettier:write"
+}
