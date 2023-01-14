@@ -1,0 +1,12 @@
+services:
+  pocketbase:
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile
+    ports:
+      - 8080:8080
+    volumes:
+      - pb_data:/pb_data
+
+volumes:
+  pb_data:
