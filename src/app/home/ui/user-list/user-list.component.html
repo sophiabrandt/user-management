@@ -1,35 +1,19 @@
-<div class="overflow-x-auto grid place-content-center">
+<div class="overflow-x-auto">
   <table class="table table-compact w-full">
     <thead>
       <tr>
-        <th></th>
         <th>Name</th>
         <th>Email</th>
         <th>Job Description</th>
         <th>Location</th>
       </tr>
     </thead>
-    <tbody>
+    <tbody *ngFor="let user of users">
       <tr>
-        <th>1</th>
-        <td>Cy Ganderton</td>
-        <td>email@email.com</td>
-        <td>Sales Consultant</td>
-        <td>remote</td>
-      </tr>
-      <tr>
-        <th>2</th>
-        <td>Hart Hagerty</td>
-        <td>email@email.com</td>
-        <td>Sales Consultant</td>
-        <td>remote</td>
-      </tr>
-      <tr>
-        <th>3</th>
-        <td>Brice Swyre</td>
-        <td>email@email.com</td>
-        <td>Software Developer</td>
-        <td>Berlin</td>
+        <td>{{ user.name + ' ' + user.surname | titlecase }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.position | titlecase }}</td>
+        <td>{{ user.location | titlecase }}</td>
       </tr>
     </tbody>
   </table>

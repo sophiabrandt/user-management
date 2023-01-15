@@ -1,18 +1,25 @@
-import { TestBed } from '@angular/core/testing';
+import { render, screen } from '@testing-library/angular';
 import { AppComponent } from './app.component';
+import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
 
 describe('AppComponent', () => {
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [HomeComponent],
-      declarations: [AppComponent],
-    }).compileComponents();
-  });
+  async function setup() {
+    const { fixture } = await render(AppComponent, {
+      imports: [HomeComponent, HeaderComponent],
+    });
+    return {
+      fixture,
+    };
+  }
 
-  it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
+  it('should render the header and a home table', async () => {
+    await setup();
+
+    expect(screen.getByRole('heading')).toHaveTextContent('User Management');
+    screen.getByRole('columnheader', { name: /name/i });
+    screen.getByRole('columnheader', { name: /email/i });
+    screen.getByRole('columnheader', { name: /job description/i });
+    screen.getByRole('columnheader', { name: /location/i });
   });
 });

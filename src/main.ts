@@ -1,7 +1,21 @@
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { HttpClientModule } from '@angular/common/http';
+import { enableProdMode, importProvidersFrom } from '@angular/core';
+import { bootstrapApplication } from '@angular/platform-browser';
+import PocketBase from 'pocketbase';
+import { AppComponent } from './app/app.component';
+import { POCKETBASE_CLIENT } from './app/shared/tokens/tokens';
+import { environment } from './environments/environment';
 
-import { AppModule } from './app/app.module';
+if (environment.production) {
+  enableProdMode();
+}
 
-platformBrowserDynamic()
-  .bootstrapModule(AppModule)
-  .catch((err) => console.error(err));
+bootstrapApplication(AppComponent, {
+  providers: [
+    importProvidersFrom(HttpClientModule),
+    {
+      provide: POCKETBASE_CLIENT,
+      useValue: new PocketBase(environment.pocketbaseUrl),
+    },
+  ],
+}).catch((err) => console.error(err));

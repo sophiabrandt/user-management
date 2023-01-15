@@ -1,22 +1,26 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { render, screen } from '@testing-library/angular';
+import { USER_EXAMPLE } from '../../../shared/interfaces/user';
 
 import { UserListComponent } from './user-list.component';
 
 describe('UserListComponent', () => {
-  let component: UserListComponent;
-  let fixture: ComponentFixture<UserListComponent>;
+  async function setup() {
+    const { fixture } = await render(UserListComponent, {
+      componentInputs: {
+        users: [USER_EXAMPLE],
+      },
+    });
+    return {
+      fixture,
+    };
+  }
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [UserListComponent],
-    }).compileComponents();
-
-    fixture = TestBed.createComponent(UserListComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('should show a list of users', async () => {
+    await setup();
+    screen.getByRole('columnheader', { name: /name/i });
+    screen.getByRole('columnheader', { name: /email/i });
+    screen.getByRole('columnheader', { name: /job description/i });
+    screen.getByRole('columnheader', { name: /location/i });
+    screen.getByRole('cell', { name: /test tester/i });
   });
 });
