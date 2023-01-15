@@ -1,4 +1,4 @@
-import { screen, render } from '@testing-library/angular';
+import { render, screen } from '@testing-library/angular';
 import { HeaderComponent } from './header.component';
 
 describe('HeaderComponent', () => {
@@ -14,7 +14,7 @@ describe('HeaderComponent', () => {
     expect(screen.getByRole('heading')).toHaveTextContent('User Management');
   });
 
-  it('shows a profile picture with menu', async () => {
+  it('should show a profile picture with menu', async () => {
     await setup();
     screen.getByRole('img');
     screen.getByText(/settings/i);

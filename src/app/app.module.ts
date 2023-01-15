@@ -9,5 +9,6 @@ import { HomeComponent } from './home/home.component';
   imports: [BrowserModule, HomeComponent],
   providers: [],
   bootstrap: [AppComponent],
+  exports: [],
 })
 export class AppModule {}
