@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { AsyncPipe, NgIf } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -6,19 +6,21 @@ import {
   OnInit,
 } from '@angular/core';
 import { catchError, map, Observable, of, startWith } from 'rxjs';
-import { HeaderComponent } from '../header/header.component';
 import { HttpRequestState } from '../shared/interfaces/http-request';
 import { User } from '../shared/interfaces/user';
+import { HeaderComponent } from '../shared/ui/header/header.component';
 import { HomeStore } from './data-access/home.store';
 import { UserListComponent } from './ui/user-list/user-list.component';
 
 @Component({
   selector: 'usrm-home',
   standalone: true,
-  imports: [CommonModule, HeaderComponent, UserListComponent],
+  imports: [NgIf, AsyncPipe, HeaderComponent, UserListComponent],
   template: `
+    <usrm-header></usrm-header>
     <ng-container *ngIf="usersDataState$ | async as usersDataState">
       <usrm-user-list
+        class="center cover"
         *ngIf="usersDataState.value"
         [users]="usersDataState.value"
       ></usrm-user-list>
@@ -27,7 +29,7 @@ import { UserListComponent } from './ui/user-list/user-list.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [HomeStore],
 })
-export class HomeComponent implements OnInit {
+export class HomePageComponent implements OnInit {
   private store = inject(HomeStore);
 
   readonly usersDataState$: Observable<HttpRequestState<User[]>> =
