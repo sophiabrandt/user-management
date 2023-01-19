@@ -4,7 +4,7 @@ import { catchError, EMPTY, switchMap } from 'rxjs';
 import { UsersService } from '../../shared/data-access/users.service';
 import { User } from '../../shared/interfaces/user';
 
-export interface HomeState {
+interface HomeState {
   users: User[];
 }
 

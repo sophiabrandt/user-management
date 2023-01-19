@@ -1,0 +1,23 @@
+<div class="card w-96 bg-accent-content/20 w-full shadow-xl">
+  <figure class="px-10 pt-10">
+    <img
+      src="https://placeimg.com/400/225/arch"
+      alt="Shoes"
+      class="rounded-xl"
+    />
+  </figure>
+  <div class="card-body">
+    <div class="items-center text-center">
+      <h2 class="card-title block mt-1">
+        {{ user.name + ' ' + user.surname }}
+      </h2>
+      <div class="badge badge-secondary mt-1">
+        <span class="text-sm">{{ user.position }}</span>
+      </div>
+      <p class="mt-1">{{ user.location }}</p>
+    </div>
+    <div class="card-actions justify-end">
+      <button class="btn btn-primary">Edit</button>
+    </div>
+  </div>
+</div>

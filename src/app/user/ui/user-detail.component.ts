@@ -1,10 +1,13 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { User } from '../../shared/interfaces/user';
 
 @Component({
   selector: 'usrm-user-detail',
   standalone: true,
   imports: [],
-  template: ` <p>user-detail works!</p> `,
+  templateUrl: './user-detail.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class UserDetailComponent {}
+export class UserDetailComponent {
+  @Input() user!: User;
+}
