@@ -15,8 +15,8 @@ export type PocketBaseUser = User & {
 };
 
 export const USER_EXAMPLE: User = {
-  name: 'Test',
-  surname: 'Tester',
+  name: 'John',
+  surname: 'Doe',
   email: 'test@test.com',
   position: 'Testing Manager',
   location: 'remote',

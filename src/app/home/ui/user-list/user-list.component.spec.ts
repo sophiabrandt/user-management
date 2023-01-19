@@ -21,6 +21,6 @@ describe('UserListComponent', () => {
     screen.getByRole('columnheader', { name: /email/i });
     screen.getByRole('columnheader', { name: /job description/i });
     screen.getByRole('columnheader', { name: /location/i });
-    screen.getByRole('cell', { name: /test tester/i });
+    screen.getByRole('cell', { name: /john doe/i });
   });
 });

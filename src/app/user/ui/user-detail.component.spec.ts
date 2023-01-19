@@ -1,11 +1,14 @@
-import { render } from '@testing-library/angular';
+import { render, screen } from '@testing-library/angular';
+import { USER_EXAMPLE } from '../../shared/interfaces/user';
 
 import { UserDetailComponent } from './user-detail.component';
 
 describe('UserDetailComponent', () => {
   async function setup() {
     const { fixture } = await render(UserDetailComponent, {
-      providers: [],
+      componentProperties: {
+        user: USER_EXAMPLE,
+      },
     });
     return {
       fixture,
@@ -13,7 +16,9 @@ describe('UserDetailComponent', () => {
   }
 
   it('should compile', async () => {
-    const { fixture } = await setup();
-    expect(fixture).toBeTruthy();
+    await setup();
+    screen.getByRole('img', { name: /john doe/i });
+    screen.getByRole('heading', { name: /john doe/i });
+    screen.getByRole('button', { name: /edit/i });
   });
 });
