@@ -1,8 +1,8 @@
-export const HttpStatus = {
+export const HttpRequestState = {
   PENDING: 'PENDING',
   IN_PROGRESS: 'IN_PROGRESS',
   SUCCESS: 'SUCCESS',
   ERROR: 'ERROR',
 } as const;
 
-export type HttpStatusType = keyof typeof HttpStatus;
+export type HttpRequestStateType = keyof typeof HttpRequestState;

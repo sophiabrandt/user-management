@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { combineLatest, map } from 'rxjs';
-import { HttpStatus } from '../shared/interfaces/http-status';
+import { HttpRequestState } from '../shared/interfaces/http-request-state';
 import { HeaderComponent } from '../shared/ui/header/header.component';
 import { UserStore } from './data-access/user.store';
 import { UserDetailComponent } from './ui/user-detail.component';
@@ -18,10 +18,9 @@ import { UserDetailComponent } from './ui/user-detail.component';
   imports: [NgIf, AsyncPipe, UserDetailComponent, HeaderComponent],
   template: `
     <usrm-header></usrm-header>
-
     <ng-container *ngIf="vm$ | async as vm">
       <usrm-user-detail
-        *ngIf="vm.status === Status.SUCCESS && vm.user"
+        *ngIf="vm.httpRequestState === HttpRequestState.SUCCESS && vm.user"
         [user]="vm.user"
         class="center cover"
       ></usrm-user-detail>
@@ -35,11 +34,12 @@ export class UserPageComponent implements OnInit {
 
   activatedRoute = inject(ActivatedRoute);
 
-  Status = HttpStatus;
+  HttpRequestState = HttpRequestState;
 
-  readonly vm$ = combineLatest([this.store.user$, this.store.status$]).pipe(
-    map(([user, status]) => ({ user, status }))
-  );
+  readonly vm$ = combineLatest([
+    this.store.user$,
+    this.store.httpRequestState$,
+  ]).pipe(map(([user, httpRequestState]) => ({ user, httpRequestState })));
 
   ngOnInit(): void {
     this.store.loadUser();

@@ -3,14 +3,14 @@ import { ComponentStore, tapResponse } from '@ngrx/component-store';
 import { catchError, EMPTY, switchMap, tap } from 'rxjs';
 import { UsersService } from '../../shared/data-access/users.service';
 import {
-  HttpStatus,
-  HttpStatusType,
-} from '../../shared/interfaces/http-status';
+  HttpRequestState,
+  HttpRequestStateType,
+} from '../../shared/interfaces/http-request-state';
 import { User } from '../../shared/interfaces/user';
 
 interface UserState {
   user: User | undefined;
-  status: HttpStatusType;
+  httpRequestState: HttpRequestStateType;
 }
 @Injectable()
 export class UserStore extends ComponentStore<UserState> {
@@ -18,18 +18,24 @@ export class UserStore extends ComponentStore<UserState> {
 
   readonly user$ = this.select((state) => state.user);
 
-  readonly status$ = this.select((state) => state.status);
+  readonly httpRequestState$ = this.select((state) => state.httpRequestState);
 
   readonly loadUser = this.effect(($) => {
     return $.pipe(
-      tap(() => this.patchState({ status: HttpStatus.IN_PROGRESS })),
+      tap(() =>
+        this.patchState({ httpRequestState: HttpRequestState.IN_PROGRESS })
+      ),
       switchMap(() =>
         this.usersService.getbyId('').pipe(
           tapResponse(
-            (user) => this.patchState({ user, status: HttpStatus.SUCCESS }),
+            (user) =>
+              this.patchState({
+                user,
+                httpRequestState: HttpRequestState.SUCCESS,
+              }),
             (err) => {
               console.error(err);
-              this.patchState({ status: HttpStatus.ERROR });
+              this.patchState({ httpRequestState: HttpRequestState.ERROR });
             }
           ),
           catchError(() => EMPTY)
@@ -39,6 +45,6 @@ export class UserStore extends ComponentStore<UserState> {
   });
 
   constructor() {
-    super({ user: undefined, status: HttpStatus.PENDING });
+    super({ user: undefined, httpRequestState: HttpRequestState.PENDING });
   }
 }

@@ -5,9 +5,8 @@ import {
   inject,
   OnInit,
 } from '@angular/core';
-import { catchError, map, Observable, of, startWith } from 'rxjs';
-import { HttpRequestState } from '../shared/interfaces/http-request';
-import { User } from '../shared/interfaces/user';
+import { combineLatest, map } from 'rxjs';
+import { HttpRequestState } from '../shared/interfaces/http-request-state';
 import { HeaderComponent } from '../shared/ui/header/header.component';
 import { HomeStore } from './data-access/home.store';
 import { UserListComponent } from './ui/user-list/user-list.component';
@@ -18,11 +17,11 @@ import { UserListComponent } from './ui/user-list/user-list.component';
   imports: [NgIf, AsyncPipe, HeaderComponent, UserListComponent],
   template: `
     <usrm-header></usrm-header>
-    <ng-container *ngIf="usersDataState$ | async as usersDataState">
+    <ng-container *ngIf="vm$ | async as vm">
       <usrm-user-list
+        *ngIf="vm.httpRequestState === HttpRequestState.SUCCESS"
+        [users]="vm.users"
         class="center cover"
-        *ngIf="usersDataState.value"
-        [users]="usersDataState.value"
       ></usrm-user-list>
     </ng-container>
   `,
@@ -32,12 +31,12 @@ import { UserListComponent } from './ui/user-list/user-list.component';
 export class HomePageComponent implements OnInit {
   private store = inject(HomeStore);
 
-  readonly usersDataState$: Observable<HttpRequestState<User[]>> =
-    this.store.users$.pipe(
-      map((value) => ({ isLoading: false, value })),
-      catchError((error) => of({ isLoading: false, error })),
-      startWith({ isLoading: true })
-    );
+  HttpRequestState = HttpRequestState;
+
+  readonly vm$ = combineLatest([
+    this.store.users$,
+    this.store.httpRequestState$,
+  ]).pipe(map(([users, httpRequestState]) => ({ users, httpRequestState })));
 
   ngOnInit(): void {
     this.store.loadUsers();
