@@ -33,7 +33,6 @@ describe('HomeComponent', () => {
 
   it('should render a user table', fakeAsync(async () => {
     const { fixture } = await setup();
-    fixture.componentInstance.ngOnInit();
 
     screen.getByRole('heading', { name: /user management/i });
     fixture.componentInstance.vm$.subscribe((result) => {

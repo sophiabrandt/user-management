@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { ComponentStore, tapResponse } from '@ngrx/component-store';
-import { catchError, EMPTY, switchMap, tap } from 'rxjs';
+import { catchError, EMPTY, Observable, switchMap, tap } from 'rxjs';
 import { UsersService } from '../../shared/data-access/users.service';
 import {
   HttpRequestState,
@@ -20,13 +20,13 @@ export class UserStore extends ComponentStore<UserState> {
 
   readonly httpRequestState$ = this.select((state) => state.httpRequestState);
 
-  readonly loadUser = this.effect(($) => {
-    return $.pipe(
+  readonly loadUser = this.effect((userId$: Observable<string>) => {
+    return userId$.pipe(
       tap(() =>
         this.patchState({ httpRequestState: HttpRequestState.IN_PROGRESS })
       ),
-      switchMap(() =>
-        this.usersService.getbyId('').pipe(
+      switchMap((userId: string) =>
+        this.usersService.getById(userId).pipe(
           tapResponse(
             (user) =>
               this.patchState({

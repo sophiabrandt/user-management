@@ -32,7 +32,7 @@ import { UserDetailComponent } from './ui/user-detail.component';
 export class UserPageComponent implements OnInit {
   private store = inject(UserStore);
 
-  activatedRoute = inject(ActivatedRoute);
+  private activatedRoute = inject(ActivatedRoute);
 
   HttpRequestState = HttpRequestState;
 
@@ -42,6 +42,7 @@ export class UserPageComponent implements OnInit {
   ]).pipe(map(([user, httpRequestState]) => ({ user, httpRequestState })));
 
   ngOnInit(): void {
-    this.store.loadUser();
+    const userId = this.activatedRoute.snapshot.paramMap.get('id') ?? '';
+    this.store.loadUser(userId);
   }
 }

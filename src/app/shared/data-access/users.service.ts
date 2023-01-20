@@ -38,11 +38,11 @@ export class UsersService {
     }
   }
 
-  getbyId(id: string): Observable<PocketBaseUser> {
+  getById(id: string): Observable<PocketBaseUser> {
     if (this.pb) {
       const userRecords: Promise<PocketBaseUser> = this.pb
         .collection('usrm_users')
-        .getFirstListItem('id="112vm9hpm58icwv"');
+        .getFirstListItem(`id="${id}"`);
 
       return from(userRecords).pipe(
         shareReplay({ refCount: true, bufferSize: 1 }),
