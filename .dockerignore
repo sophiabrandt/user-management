@@ -3,5 +3,7 @@
 .dockerignore
 LICENSE
 README.md
-tags
+tags*
 docker*
+.env*
+
