@@ -8,10 +8,10 @@ clsRequire('cross-fetch/polyfill');
 
 dotenv.config();
 
-const pb = new PocketBase(process.env.POCKET_BASE_URL);
+const pb = new PocketBase(process.env['POCKET_BASE_URL']);
 
-const adminEmail = process.env.POCKET_BASE_ADMIN_EMAIL;
-const adminPassword = process.env.POCKET_BASE_ADMIN_PASSWORD;
+const adminEmail = process.env['POCKET_BASE_ADMIN_EMAIL'];
+const adminPassword = process.env['POCKET_BASE_ADMIN_PASSWORD'];
 
 if (!adminEmail || !adminPassword) {
   console.error('Error: Admin email and password must be set in .env file');
@@ -41,8 +41,8 @@ const checkCollection = async (): Promise<void> => {
         listRule: '',
       });
     }
-  } catch (err) {
-    console.error(`Error creating table: ${err.message}`);
+  } catch ({ message }) {
+    console.error(`Error creating table: ${message}`);
     process.exit(1);
   }
 };
@@ -73,7 +73,7 @@ pb.admins
   .then(() => {
     console.log('Seeded usrm_users table with fake data');
   })
-  .catch((err) => {
-    console.error(`Error seeding users: ${err.message}`);
+  .catch(({ message }) => {
+    console.error(`Error seeding users: ${message}`);
     process.exit(1);
   });
