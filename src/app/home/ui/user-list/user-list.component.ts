@@ -40,5 +40,5 @@ import { PocketBaseUser } from '../../../shared/interfaces/user';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserListComponent {
-  @Input() users!: PocketBaseUser[];
+  @Input() users: PocketBaseUser[];
 }
