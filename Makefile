@@ -3,6 +3,14 @@ SHELL := /bin/bash
 export PROJECT = usermanagement
 
 # ==============================================================================
+# Seed database (create admin user via web interface first)
+
+seed:
+	if [ ! -f dist/esm/package.json ]; then echo '{"type": "module"}' > dist/esm/package.json; fi
+	pnpm run seed
+
+
+# ==============================================================================
 # Development
 
 run: pb nx
