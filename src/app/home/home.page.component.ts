@@ -21,7 +21,6 @@ import { UserListComponent } from './ui/user-list/user-list.component';
       <usrm-user-list
         *ngIf="vm.httpRequestState === HttpRequestState.SUCCESS"
         [users]="vm.users"
-        class="center cover"
       ></usrm-user-list>
     </ng-container>
   `,
