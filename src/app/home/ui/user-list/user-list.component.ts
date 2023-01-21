@@ -25,7 +25,7 @@ import { PocketBaseUser } from '../../../shared/interfaces/user';
             <td>{{ user.position | titlecase }}</td>
             <td>{{ user.location | titlecase }}</td>
             <th>
-              <a [routerLink]="['/user/', user.id]">
+              <a [routerLink]="['/users/', user.id]">
                 <button class="btn btn-outline btn-secondary btn-xs">
                   details
                 </button>

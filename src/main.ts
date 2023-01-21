@@ -19,7 +19,7 @@ const APP_ROUTES: Routes = [
       import('./app/home/home.page.component').then((m) => m.HomePageComponent),
   },
   {
-    path: 'user/:id',
+    path: 'users/:id',
     loadComponent: () =>
       import('./app/user/user.page.component').then((m) => m.UserPageComponent),
   },
