@@ -22,7 +22,6 @@ import { UserDetailComponent } from './ui/user-detail.component';
       <usrm-user-detail
         *ngIf="vm.httpRequestState === HttpRequestState.SUCCESS && vm.user"
         [user]="vm.user"
-        class="center cover"
       ></usrm-user-detail>
     </ng-container>
   `,

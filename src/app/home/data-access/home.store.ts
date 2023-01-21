@@ -6,10 +6,10 @@ import {
   HttpRequestState,
   HttpRequestStateType,
 } from '../../shared/interfaces/http-request-state';
-import { User } from '../../shared/interfaces/user';
+import { PocketBaseUser } from '../../shared/interfaces/user';
 
 interface HomeState {
-  users: User[];
+  users: PocketBaseUser[];
   httpRequestState: HttpRequestStateType;
 }
 

@@ -14,7 +14,12 @@ export type PocketBaseUser = User & {
   updated: string;
 };
 
-export const USER_EXAMPLE: User = {
+export const USER_EXAMPLE: PocketBaseUser = {
+  id: 'my-id',
+  collectionId: 'my-collection-id',
+  collectionName: 'my-collection',
+  created: new Date().toLocaleDateString(),
+  updated: new Date().toLocaleDateString(),
   name: 'John',
   surname: 'Doe',
   email: 'test@test.com',
