@@ -22,7 +22,7 @@ nx:
 	pnpm run start
 
 down:
-	docker compose down -v --remove-orphans
+	docker compose down
 
 # ==============================================================================
 # Running tests on local computer
