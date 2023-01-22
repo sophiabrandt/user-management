@@ -7,41 +7,37 @@ import {
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { combineLatest, map } from 'rxjs';
-import { HttpRequestState } from '../shared/interfaces/http-request-state';
-import { HeaderComponent } from '../shared/ui/header/header.component';
-import { UsersStore } from './data-access/users.store';
-import { UsersDetailComponent } from './ui/users-detail.component';
+import { HttpRequestState } from '../../shared/interfaces/http-request-state';
+import { UsersStore } from '../data-access/users.store';
+import { UsersEditFormComponent } from './ui/users-edit-form.component';
 
 @Component({
-  selector: 'usrm-users',
+  selector: 'usrm-users-edit',
   standalone: true,
-  imports: [NgIf, AsyncPipe, UsersDetailComponent, HeaderComponent],
+  imports: [AsyncPipe, NgIf, UsersEditFormComponent],
   template: `
-    <usrm-header></usrm-header>
     <ng-container *ngIf="vm$ | async as vm">
-      <usrm-users-detail
+      <usrm-users-edit-form
         *ngIf="vm.httpRequestState === HttpRequestState.SUCCESS && vm.user"
         [user]="vm.user"
-      ></usrm-users-detail>
+      ></usrm-users-edit-form>
     </ng-container>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [UsersStore],
 })
-export class UsersPageComponent implements OnInit {
-  private store = inject(UsersStore);
-
+export class UsersEditPageComponent implements OnInit {
+  private usersStore = inject(UsersStore);
   private activatedRoute = inject(ActivatedRoute);
 
   HttpRequestState = HttpRequestState;
 
   readonly vm$ = combineLatest([
-    this.store.user$,
-    this.store.httpRequestState$,
+    this.usersStore.user$,
+    this.usersStore.httpRequestState$,
   ]).pipe(map(([user, httpRequestState]) => ({ user, httpRequestState })));
 
   ngOnInit(): void {
     const userId = this.activatedRoute.snapshot.paramMap.get('id') ?? '';
-    this.store.loadUser(userId);
+    this.usersStore.loadUser(userId);
   }
 }

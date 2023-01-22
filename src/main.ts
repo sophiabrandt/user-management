@@ -5,6 +5,7 @@ import {
   PreloadAllModules,
   provideRouter,
   Routes,
+  withDebugTracing,
   withPreloading,
 } from '@angular/router';
 import PocketBase from 'pocketbase';
@@ -19,11 +20,9 @@ const APP_ROUTES: Routes = [
       import('./app/home/home.page.component').then((m) => m.HomePageComponent),
   },
   {
-    path: 'users/:id',
-    loadComponent: () =>
-      import('./app/users/users.page.component').then(
-        (m) => m.UsersPageComponent
-      ),
+    path: 'users',
+    loadChildren: () =>
+      import('./app/users/users.routes').then((m) => m.USERS_ROUTES),
   },
   {
     path: '**',
@@ -39,7 +38,11 @@ if (environment.production) {
 bootstrapApplication(AppComponent, {
   providers: [
     importProvidersFrom(HttpClientModule),
-    provideRouter(APP_ROUTES, withPreloading(PreloadAllModules)),
+    provideRouter(
+      APP_ROUTES,
+      withPreloading(PreloadAllModules),
+      withDebugTracing()
+    ),
     {
       provide: POCKETBASE_CLIENT,
       useValue: new PocketBase(environment.pocketbaseUrl),

@@ -24,11 +24,14 @@ import { PocketBaseUser } from '../../../shared/interfaces/user';
             <td>{{ user.email }}</td>
             <td>{{ user.position | titlecase }}</td>
             <td>{{ user.location | titlecase }}</td>
-            <th>
+            <th class="flex justify-between gap-1">
               <a [routerLink]="['/users/', user.id]">
                 <button class="btn btn-outline btn-secondary btn-xs">
                   details
                 </button>
+              </a>
+              <a [routerLink]="['/users/' + user.id + '/edit']">
+                <button class="btn btn-outline btn-accent btn-xs">edit</button>
               </a>
             </th>
           </tr>

@@ -54,6 +54,10 @@ export class UsersService {
     }
   }
 
+  editUser() {
+    return EMPTY;
+  }
+
   private handleError(error: HttpErrorResponse) {
     let errorMessage = '';
     if (error.status === 0) {

@@ -1,15 +1,15 @@
 import { fakeAsync, tick } from '@angular/core/testing';
 import { render, screen } from '@testing-library/angular';
 import { of } from 'rxjs';
-import { HttpRequestState } from '../shared/interfaces/http-request-state';
-import { USER_EXAMPLE } from '../shared/interfaces/user';
-import { UsersStore } from './data-access/users.store';
+import { HttpRequestState } from '../../shared/interfaces/http-request-state';
+import { USER_EXAMPLE } from '../../shared/interfaces/user';
+import { UsersStore } from '../data-access/users.store';
 
-import { UsersPageComponent } from './users.page.component';
+import { UsersDetailsPageComponent } from './users-details.page.component';
 
-describe('UsersComponent', () => {
+describe('UsersDetailsPageComponent', () => {
   async function setup() {
-    const { fixture } = await render(UsersPageComponent, {
+    const { fixture } = await render(UsersDetailsPageComponent, {
       componentProviders: [
         {
           provide: UsersStore,
