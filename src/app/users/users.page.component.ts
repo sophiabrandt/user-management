@@ -9,27 +9,27 @@ import { ActivatedRoute } from '@angular/router';
 import { combineLatest, map } from 'rxjs';
 import { HttpRequestState } from '../shared/interfaces/http-request-state';
 import { HeaderComponent } from '../shared/ui/header/header.component';
-import { UserStore } from './data-access/user.store';
-import { UserDetailComponent } from './ui/user-detail.component';
+import { UsersStore } from './data-access/users.store';
+import { UsersDetailComponent } from './ui/users-detail.component';
 
 @Component({
-  selector: 'usrm-user',
+  selector: 'usrm-users',
   standalone: true,
-  imports: [NgIf, AsyncPipe, UserDetailComponent, HeaderComponent],
+  imports: [NgIf, AsyncPipe, UsersDetailComponent, HeaderComponent],
   template: `
     <usrm-header></usrm-header>
     <ng-container *ngIf="vm$ | async as vm">
-      <usrm-user-detail
+      <usrm-users-detail
         *ngIf="vm.httpRequestState === HttpRequestState.SUCCESS && vm.user"
         [user]="vm.user"
-      ></usrm-user-detail>
+      ></usrm-users-detail>
     </ng-container>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [UserStore],
+  providers: [UsersStore],
 })
-export class UserPageComponent implements OnInit {
-  private store = inject(UserStore);
+export class UsersPageComponent implements OnInit {
+  private store = inject(UsersStore);
 
   private activatedRoute = inject(ActivatedRoute);
 

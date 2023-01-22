@@ -3,16 +3,16 @@ import { render, screen } from '@testing-library/angular';
 import { of } from 'rxjs';
 import { HttpRequestState } from '../shared/interfaces/http-request-state';
 import { USER_EXAMPLE } from '../shared/interfaces/user';
-import { UserStore } from './data-access/user.store';
+import { UsersStore } from './data-access/users.store';
 
-import { UserPageComponent } from './user.page.component';
+import { UsersPageComponent } from './users.page.component';
 
-describe('UserComponent', () => {
+describe('UsersComponent', () => {
   async function setup() {
-    const { fixture } = await render(UserPageComponent, {
+    const { fixture } = await render(UsersPageComponent, {
       componentProviders: [
         {
-          provide: UserStore,
+          provide: UsersStore,
           useValue: {
             user$: of(USER_EXAMPLE),
             httpRequestState$: of(HttpRequestState.SUCCESS),
@@ -26,7 +26,7 @@ describe('UserComponent', () => {
     };
   }
 
-  it('should compile', fakeAsync(async () => {
+  it('should render the table with users', fakeAsync(async () => {
     const { fixture } = await setup();
 
     fixture.componentInstance.vm$.subscribe((result) => {

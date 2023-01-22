@@ -21,7 +21,9 @@ const APP_ROUTES: Routes = [
   {
     path: 'users/:id',
     loadComponent: () =>
-      import('./app/user/user.page.component').then((m) => m.UserPageComponent),
+      import('./app/users/users.page.component').then(
+        (m) => m.UsersPageComponent
+      ),
   },
   {
     path: '**',

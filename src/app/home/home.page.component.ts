@@ -9,19 +9,19 @@ import { combineLatest, map } from 'rxjs';
 import { HttpRequestState } from '../shared/interfaces/http-request-state';
 import { HeaderComponent } from '../shared/ui/header/header.component';
 import { HomeStore } from './data-access/home.store';
-import { UserListComponent } from './ui/user-list/user-list.component';
+import { UsersListComponent } from './ui/user-list/users-list.component';
 
 @Component({
   selector: 'usrm-home',
   standalone: true,
-  imports: [NgIf, AsyncPipe, HeaderComponent, UserListComponent],
+  imports: [NgIf, AsyncPipe, HeaderComponent, UsersListComponent],
   template: `
     <usrm-header></usrm-header>
     <ng-container *ngIf="vm$ | async as vm">
-      <usrm-user-list
+      <usrm-users-list
         *ngIf="vm.httpRequestState === HttpRequestState.SUCCESS"
         [users]="vm.users"
-      ></usrm-user-list>
+      ></usrm-users-list>
     </ng-container>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,

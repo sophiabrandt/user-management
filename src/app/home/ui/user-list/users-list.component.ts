@@ -4,7 +4,7 @@ import { RouterLink } from '@angular/router';
 import { PocketBaseUser } from '../../../shared/interfaces/user';
 
 @Component({
-  selector: 'usrm-user-list',
+  selector: 'usrm-users-list',
   standalone: true,
   template: `
     <div class="overflow-x-auto cover">
@@ -39,6 +39,6 @@ import { PocketBaseUser } from '../../../shared/interfaces/user';
   imports: [NgFor, TitleCasePipe, RouterLink],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class UserListComponent {
+export class UsersListComponent {
   @Input() users: PocketBaseUser[];
 }

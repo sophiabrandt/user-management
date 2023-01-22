@@ -13,7 +13,7 @@ interface UserState {
   httpRequestState: HttpRequestStateType;
 }
 @Injectable()
-export class UserStore extends ComponentStore<UserState> {
+export class UsersStore extends ComponentStore<UserState> {
   private usersService = inject(UsersService);
 
   readonly user$ = this.select((state) => state.user);

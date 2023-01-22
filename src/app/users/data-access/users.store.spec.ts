@@ -3,13 +3,13 @@ import { of } from 'rxjs';
 import { UsersService } from '../../shared/data-access/users.service';
 import { USER_EXAMPLE } from '../../shared/interfaces/user';
 
-import { UserStore } from './user.store';
+import { UsersStore } from './users.store';
 
-describe('UserStore', () => {
+describe('UsersStore', () => {
   function setup(overwriteMock = {}) {
     TestBed.configureTestingModule({
       providers: [
-        UserStore,
+        UsersStore,
         {
           provide: UsersService,
           useValue: {
@@ -20,7 +20,7 @@ describe('UserStore', () => {
       ],
     });
 
-    const store = TestBed.inject(UserStore);
+    const store = TestBed.inject(UsersStore);
     return { store };
   }
 
