@@ -17,6 +17,7 @@ describe('UsersEditFormComponent', () => {
 
   it('should compile', async () => {
     const { fixture } = await setup();
+    fixture.detectChanges();
     expect(fixture).toBeTruthy();
   });
 });
