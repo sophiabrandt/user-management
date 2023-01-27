@@ -14,7 +14,7 @@ import { PocketBaseUser } from '../../../shared/interfaces/user';
       <div class="card center w-96 bg-accent-content/20 w-full shadow-xl">
         <figure class="px-10 pt-10">
           <img
-            src="https://placeimg.com/400/225/arch"
+            src="https://api.lorem.space/image/face?w=400&h=225"
             [alt]="user.name + ' ' + user.surname"
             class="rounded-xl"
           />
