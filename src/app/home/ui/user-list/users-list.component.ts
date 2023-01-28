@@ -1,4 +1,4 @@
-import { NgFor, TitleCasePipe } from '@angular/common';
+import { NgForOf, TitleCasePipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { PocketBaseUser } from '../../../shared/interfaces/user';
@@ -18,7 +18,7 @@ import { PocketBaseUser } from '../../../shared/interfaces/user';
             <th></th>
           </tr>
         </thead>
-        <tbody *ngFor="let user of users">
+        <tbody *ngFor="let user of users; trackBy: usersTrackByFn">
           <tr>
             <td>{{ user.name + ' ' + user.surname | titlecase }}</td>
             <td>{{ user.email }}</td>
@@ -39,9 +39,13 @@ import { PocketBaseUser } from '../../../shared/interfaces/user';
       </table>
     </div>
   `,
-  imports: [NgFor, TitleCasePipe, RouterLink],
+  imports: [TitleCasePipe, RouterLink, NgForOf],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UsersListComponent {
   @Input() users: PocketBaseUser[];
+
+  usersTrackByFn(_: number, user: PocketBaseUser) {
+    return user.id;
+  }
 }

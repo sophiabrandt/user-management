@@ -1,10 +1,5 @@
 import { AsyncPipe, NgIf } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  inject,
-  OnInit,
-} from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { combineLatest, map } from 'rxjs';
 import { HttpRequestState } from '../shared/interfaces/http-request-state';
 import { HeaderComponent } from '../shared/ui/header/header.component';
@@ -24,7 +19,6 @@ import { UsersListComponent } from './ui/user-list/users-list.component';
       ></usrm-users-list>
     </ng-container>
   `,
-  changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [HomeStore],
 })
 export class HomePageComponent implements OnInit {
