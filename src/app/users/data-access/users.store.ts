@@ -12,6 +12,7 @@ interface UserState {
   user: PocketBaseUser | undefined;
   httpRequestState: HttpRequestStateType;
 }
+
 @Injectable()
 export class UsersStore extends ComponentStore<UserState> {
   private usersService = inject(UsersService);

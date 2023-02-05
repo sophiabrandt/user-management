@@ -54,8 +54,23 @@ export class UsersService {
     }
   }
 
-  editUser() {
-    return EMPTY;
+  updateUserById(
+    usersData: Partial<PocketBaseUser>
+  ): Observable<PocketBaseUser> {
+    const { id, ...data } = usersData;
+    if (this.pb && id) {
+      const updatedUser: Promise<PocketBaseUser> = this.pb
+        .collection('usrm_users')
+        .update(id, data);
+
+      return from(updatedUser).pipe(
+        shareReplay({ refCount: true, bufferSize: 1 }),
+        catchError(this.handleError)
+      );
+    } else {
+      if (!TESTING) console.error('NO POCKETBASE CLIENT');
+      return EMPTY;
+    }
   }
 
   private handleError(error: HttpErrorResponse) {

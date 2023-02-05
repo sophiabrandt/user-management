@@ -8,6 +8,10 @@ import {
   Output,
 } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
+import {
+  HttpRequestState,
+  HttpRequestStateType,
+} from '../../../shared/interfaces/http-request-state';
 import { PocketBaseUser, User } from '../../../shared/interfaces/user';
 
 @Component({
@@ -183,7 +187,9 @@ import { PocketBaseUser, User } from '../../../shared/interfaces/user';
           />
         </div>
         <button
-          [disabled]="form.invalid"
+          [disabled]="
+            form.invalid || userEditState === HttpRequestState.IN_PROGRESS
+          "
           type="submit"
           class="form-group form-group--full-width w-full btn btn-wide disabled:btn-disabled"
         >
@@ -227,9 +233,13 @@ import { PocketBaseUser, User } from '../../../shared/interfaces/user';
 export class UsersEditFormComponent implements OnInit {
   @Input() user: PocketBaseUser;
 
-  @Output() editUser = new EventEmitter<PocketBaseUser>();
+  @Input() userEditState: HttpRequestStateType;
+
+  @Output() editUser = new EventEmitter<Partial<PocketBaseUser>>();
 
   usersEditFormModel: User;
+
+  HttpRequestState = HttpRequestState;
 
   ngOnInit(): void {
     this.usersEditFormModel = this.user;
@@ -237,9 +247,8 @@ export class UsersEditFormComponent implements OnInit {
 
   onSubmit(form: NgForm): void {
     if (form.valid) {
-      console.log(form.value);
       form.resetForm(form.value);
-      this.editUser.emit(this.user);
+      this.editUser.emit({ ...form.value, id: this.user.id });
     } else {
       form.form.markAllAsTouched();
     }
