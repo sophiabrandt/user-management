@@ -1,3 +1,4 @@
+import { NgIf } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -12,7 +13,7 @@ import { PocketBaseUser, User } from '../../../shared/interfaces/user';
 @Component({
   selector: 'usrm-users-edit-form',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, NgIf],
   template: `
     <div class="m-2">
       <form
@@ -21,14 +22,30 @@ import { PocketBaseUser, User } from '../../../shared/interfaces/user';
         class="users-edit-form center form form-control w-full max-w-xs"
       >
         <div class="form-group">
-          <label class="label">
+          <label for="name" class="label">
             <span class="label-text">Name</span>
+            <ng-container *ngIf="name.dirty && name.hasError('required')">
+              <span class="text-red-500 text-sm">This field is required.</span>
+            </ng-container>
+            <ng-container *ngIf="name.dirty && name.hasError('minlength')">
+              <span class="text-red-500 text-sm"
+                >Min
+                {{ name.getError('minlength').requiredLength }}
+                characters.</span
+              >
+            </ng-container>
+            <ng-container *ngIf="name.dirty && name.hasError('pattern')">
+              <span class="text-red-500 text-sm"
+                >Only letters are allowed.</span
+              >
+            </ng-container>
           </label>
           <input
             required
             minlength="2"
-            pattern="^[a-zA-z- ]+$"
+            pattern="^[a-zA-Z- ]+$"
             name="name"
+            #name="ngModel"
             [(ngModel)]="usersEditFormModel.name"
             type="text"
             placeholder="My name"
@@ -36,28 +53,55 @@ import { PocketBaseUser, User } from '../../../shared/interfaces/user';
           />
         </div>
         <div class="form-group">
-          <label class="label">
-            <span class="label-text">Surname</span>
+          <label for="surname" class="label">
+            <span class="label-text">Last name</span>
+            <ng-container *ngIf="surname.dirty && surname.hasError('required')">
+              <span class="text-red-500 text-sm">This field is required.</span>
+            </ng-container>
+            <ng-container
+              *ngIf="surname.dirty && surname.hasError('minlength')"
+            >
+              <span class="text-red-500 text-sm"
+                >Min
+                {{ surname.getError('minlength').requiredLength }}
+                characters.</span
+              >
+            </ng-container>
+            <ng-container *ngIf="surname.dirty && surname.hasError('pattern')">
+              <span class="text-red-500 text-sm"
+                >Only letters are allowed.</span
+              >
+            </ng-container>
           </label>
           <input
             required
             minlength="2"
-            pattern="^[a-zA-z- ]+$"
+            pattern="^[a-zA-Z- ]+$"
             name="surname"
+            #surname="ngModel"
             [(ngModel)]="usersEditFormModel.surname"
             type="text"
-            placeholder="My last name"
+            placeholder="My surname"
             class="input input-bordered"
           />
         </div>
         <div class="form-group form-group--full-width">
-          <label class="label">
+          <label for="email" class="label">
             <span class="label-text">Email</span>
+            <ng-container *ngIf="email.dirty && email.hasError('required')">
+              <span class="text-red-500 text-sm">This field is required.</span>
+            </ng-container>
+            <ng-container *ngIf="email.dirty && email.hasError('email')">
+              <span class="text-red-500 text-sm"
+                >Only valid email addresses.</span
+              >
+            </ng-container>
           </label>
           <input
             required
             email
             name="email"
+            #email="ngModel"
             [(ngModel)]="usersEditFormModel.email"
             type="email"
             placeholder="email@example.com"
@@ -65,14 +109,36 @@ import { PocketBaseUser, User } from '../../../shared/interfaces/user';
           />
         </div>
         <div class="form-group">
-          <label class="label">
+          <label for="position" class="label">
             <span class="label-text">Position</span>
+            <ng-container
+              *ngIf="position.dirty && position.hasError('required')"
+            >
+              <span class="text-red-500 text-sm">This field is required.</span>
+            </ng-container>
+            <ng-container
+              *ngIf="position.dirty && position.hasError('minlength')"
+            >
+              <span class="text-red-500 text-sm"
+                >Min
+                {{ position.getError('minlength').requiredLength }}
+                characters.</span
+              >
+            </ng-container>
+            <ng-container
+              *ngIf="position.dirty && position.hasError('pattern')"
+            >
+              <span class="text-red-500 text-sm"
+                >Only letters are allowed.</span
+              >
+            </ng-container>
           </label>
           <input
             required
             minlength="2"
-            pattern="^[a-zA-z- ]+$"
+            pattern="^[a-zA-Z- ]+$"
             name="position"
+            #position="ngModel"
             [(ngModel)]="usersEditFormModel.position"
             type="text"
             placeholder="CEO"
@@ -80,14 +146,36 @@ import { PocketBaseUser, User } from '../../../shared/interfaces/user';
           />
         </div>
         <div class="form-group">
-          <label class="label">
+          <label for="location" class="label">
             <span class="label-text">Location</span>
+            <ng-container
+              *ngIf="location.dirty && location.hasError('required')"
+            >
+              <span class="text-red-500 text-sm">This field is required.</span>
+            </ng-container>
+            <ng-container
+              *ngIf="location.dirty && location.hasError('minlength')"
+            >
+              <span class="text-red-500 text-sm"
+                >Min
+                {{ location.getError('minlength').requiredLength }}
+                characters.</span
+              >
+            </ng-container>
+            <ng-container
+              *ngIf="location.dirty && location.hasError('pattern')"
+            >
+              <span class="text-red-500 text-sm"
+                >Only letters are allowed.</span
+              >
+            </ng-container>
           </label>
           <input
             required
             minlength="2"
-            pattern="^[a-zA-z- ]+$"
+            pattern="^[a-zA-Z- ]+$"
             name="location"
+            #location="ngModel"
             [(ngModel)]="usersEditFormModel.location"
             type="text"
             placeholder="remote"
@@ -125,6 +213,7 @@ import { PocketBaseUser, User } from '../../../shared/interfaces/user';
       .form-group--full-width {
         grid-column: 1/-1;
       }
+
       .ng-valid.ng-dirty:not([ngModelGroup]):not(form) {
         border: 2px solid yellowgreen;
       }
@@ -149,6 +238,7 @@ export class UsersEditFormComponent implements OnInit {
   onSubmit(form: NgForm): void {
     if (form.valid) {
       console.log(form.value);
+      form.resetForm(form.value);
       this.editUser.emit(this.user);
     } else {
       form.form.markAllAsTouched();
