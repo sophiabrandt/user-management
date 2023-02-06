@@ -23,23 +23,23 @@ import { PocketBaseUser, User } from '../../../shared/interfaces/user';
       <form
         #form="ngForm"
         (submit)="onSubmit(form)"
-        class="users-edit-form center form form-control w-full max-w-xs"
+        class="w-full max-w-xs users-edit-form center form form-control"
       >
         <div class="form-group">
           <label for="name" class="label">
             <span class="label-text">Name</span>
             <ng-container *ngIf="name.dirty && name.hasError('required')">
-              <span class="text-red-500 text-sm">This field is required.</span>
+              <span class="text-sm text-red-500">This field is required.</span>
             </ng-container>
             <ng-container *ngIf="name.dirty && name.hasError('minlength')">
-              <span class="text-red-500 text-sm"
+              <span class="text-sm text-red-500"
                 >Min
                 {{ name.getError('minlength').requiredLength }}
                 characters.</span
               >
             </ng-container>
             <ng-container *ngIf="name.dirty && name.hasError('pattern')">
-              <span class="text-red-500 text-sm"
+              <span class="text-sm text-red-500"
                 >Only letters are allowed.</span
               >
             </ng-container>
@@ -60,19 +60,19 @@ import { PocketBaseUser, User } from '../../../shared/interfaces/user';
           <label for="surname" class="label">
             <span class="label-text">Last name</span>
             <ng-container *ngIf="surname.dirty && surname.hasError('required')">
-              <span class="text-red-500 text-sm">This field is required.</span>
+              <span class="text-sm text-red-500">This field is required.</span>
             </ng-container>
             <ng-container
               *ngIf="surname.dirty && surname.hasError('minlength')"
             >
-              <span class="text-red-500 text-sm"
+              <span class="text-sm text-red-500"
                 >Min
                 {{ surname.getError('minlength').requiredLength }}
                 characters.</span
               >
             </ng-container>
             <ng-container *ngIf="surname.dirty && surname.hasError('pattern')">
-              <span class="text-red-500 text-sm"
+              <span class="text-sm text-red-500"
                 >Only letters are allowed.</span
               >
             </ng-container>
@@ -93,10 +93,10 @@ import { PocketBaseUser, User } from '../../../shared/interfaces/user';
           <label for="email" class="label">
             <span class="label-text">Email</span>
             <ng-container *ngIf="email.dirty && email.hasError('required')">
-              <span class="text-red-500 text-sm">This field is required.</span>
+              <span class="text-sm text-red-500">This field is required.</span>
             </ng-container>
             <ng-container *ngIf="email.dirty && email.hasError('email')">
-              <span class="text-red-500 text-sm"
+              <span class="text-sm text-red-500"
                 >Only valid email addresses.</span
               >
             </ng-container>
@@ -118,12 +118,12 @@ import { PocketBaseUser, User } from '../../../shared/interfaces/user';
             <ng-container
               *ngIf="position.dirty && position.hasError('required')"
             >
-              <span class="text-red-500 text-sm">This field is required.</span>
+              <span class="text-sm text-red-500">This field is required.</span>
             </ng-container>
             <ng-container
               *ngIf="position.dirty && position.hasError('minlength')"
             >
-              <span class="text-red-500 text-sm"
+              <span class="text-sm text-red-500"
                 >Min
                 {{ position.getError('minlength').requiredLength }}
                 characters.</span
@@ -132,7 +132,7 @@ import { PocketBaseUser, User } from '../../../shared/interfaces/user';
             <ng-container
               *ngIf="position.dirty && position.hasError('pattern')"
             >
-              <span class="text-red-500 text-sm"
+              <span class="text-sm text-red-500"
                 >Only letters are allowed.</span
               >
             </ng-container>
@@ -155,12 +155,12 @@ import { PocketBaseUser, User } from '../../../shared/interfaces/user';
             <ng-container
               *ngIf="location.dirty && location.hasError('required')"
             >
-              <span class="text-red-500 text-sm">This field is required.</span>
+              <span class="text-sm text-red-500">This field is required.</span>
             </ng-container>
             <ng-container
               *ngIf="location.dirty && location.hasError('minlength')"
             >
-              <span class="text-red-500 text-sm"
+              <span class="text-sm text-red-500"
                 >Min
                 {{ location.getError('minlength').requiredLength }}
                 characters.</span
@@ -169,7 +169,7 @@ import { PocketBaseUser, User } from '../../../shared/interfaces/user';
             <ng-container
               *ngIf="location.dirty && location.hasError('pattern')"
             >
-              <span class="text-red-500 text-sm"
+              <span class="text-sm text-red-500"
                 >Only letters are allowed.</span
               >
             </ng-container>
@@ -191,7 +191,8 @@ import { PocketBaseUser, User } from '../../../shared/interfaces/user';
             form.invalid || userEditState === HttpRequestState.IN_PROGRESS
           "
           type="submit"
-          class="form-group form-group--full-width w-full btn btn-wide disabled:btn-disabled"
+          class="w-full transition-all ease-in-out form-group form-group--full-width btn btn-wide disabled:btn-disabled"
+          [class.animate-pulse]="userEditState === HttpRequestState.IN_PROGRESS"
         >
           Submit
         </button>
