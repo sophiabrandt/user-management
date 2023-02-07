@@ -1,5 +1,7 @@
-import { TestBed } from '@angular/core/testing';
+import { fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { of } from 'rxjs';
+import { UsersService } from '../../../shared/data-access/users.service';
+import { HttpRequestState } from '../../../shared/interfaces/http-request-state';
 import { USER_EXAMPLE } from '../../../shared/interfaces/user';
 
 import { UsersEditStore } from './users-edit.store';
@@ -10,9 +12,11 @@ describe('UsersEditStore', () => {
       providers: [
         UsersEditStore,
         {
-          provide: UsersEditStore,
+          provide: UsersService,
           useValue: {
-            updateById: jest.fn().mockReturnValue(of(USER_EXAMPLE)),
+            updateUserById: jest
+              .fn()
+              .mockReturnValue(of(HttpRequestState.SUCCESS)),
             ...overwriteMock,
           },
         },
@@ -23,8 +27,15 @@ describe('UsersEditStore', () => {
     return { store };
   }
 
-  it('should compile', () => {
+  it('should edit a user', fakeAsync(() => {
     const { store } = setup();
-    expect(store).toBeTruthy();
-  });
+
+    store.editUser(USER_EXAMPLE);
+
+    store.httpRequestState$.subscribe({
+      next: (result) => expect(result).toEqual(HttpRequestState.SUCCESS),
+    });
+
+    tick();
+  }));
 });

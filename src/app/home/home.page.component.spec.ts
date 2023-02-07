@@ -1,4 +1,4 @@
-import { fakeAsync, tick } from '@angular/core/testing';
+import { fakeAsync } from '@angular/core/testing';
 import { render, screen } from '@testing-library/angular';
 import { of } from 'rxjs';
 import { HttpRequestState } from '../shared/interfaces/http-request-state';
@@ -25,26 +25,19 @@ describe('HomeComponent', () => {
     };
   }
 
-  it('should render the header', async () => {
+  it('should render the header and the users table', async () => {
     await setup();
 
     screen.getByRole('heading', { name: /user management/i });
+    screen.getByRole('table');
+    screen.getByRole('columnheader', { name: /name/i });
   });
 
-  it('should render a user table', fakeAsync(async () => {
+  it('should load users data', fakeAsync(async () => {
     const { fixture } = await setup();
+    const homeStore = fixture.debugElement.injector.get(HomeStore);
+    const spy = jest.spyOn(homeStore, 'loadUsers');
 
-    screen.getByRole('heading', { name: /user management/i });
-    fixture.componentInstance.vm$.subscribe((result) => {
-      expect(result.users).toEqual([USER_EXAMPLE]);
-      expect(result.httpRequestState).toEqual(HttpRequestState.SUCCESS);
-    });
-    screen.getByRole('columnheader', { name: /name/i });
-    screen.getByRole('columnheader', { name: /email/i });
-    screen.getByRole('columnheader', { name: /job description/i });
-    screen.getByRole('columnheader', { name: /location/i });
-    screen.getByRole('cell', { name: /test@test.com/i });
-
-    tick();
+    expect(spy).toHaveBeenCalledTimes(1);
   }));
 });

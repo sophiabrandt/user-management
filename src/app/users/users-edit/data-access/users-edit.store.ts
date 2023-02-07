@@ -9,7 +9,6 @@ import {
 import { PocketBaseUser } from '../../../shared/interfaces/user';
 
 interface UsersEditState {
-  user: Partial<PocketBaseUser> | undefined;
   httpRequestState: HttpRequestStateType;
 }
 
@@ -28,9 +27,8 @@ export class UsersEditStore extends ComponentStore<UsersEditState> {
         switchMap((usersData) =>
           this.usersService.updateUserById(usersData).pipe(
             tapResponse(
-              (user) =>
+              () =>
                 this.patchState({
-                  user,
                   httpRequestState: HttpRequestState.SUCCESS,
                 }),
               (err) => {
@@ -47,7 +45,6 @@ export class UsersEditStore extends ComponentStore<UsersEditState> {
 
   constructor() {
     super({
-      user: undefined,
       httpRequestState: HttpRequestState.PENDING,
     });
   }

@@ -58,6 +58,8 @@ describe('HomeStore', () => {
     store.users$.subscribe({
       next: (result) => expect(result).toEqual([]),
     });
+    tick();
+
     console.error = logError;
   }));
 });
