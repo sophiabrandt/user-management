@@ -31,7 +31,7 @@ export class UsersEditPageComponent implements OnInit {
 
   private usersEditStore = inject(UsersEditStore);
 
-  HttpRequestState = HttpRequestState;
+  readonly HttpRequestState = HttpRequestState;
 
   readonly vm$ = combineLatest([
     this.usersStore.user$,

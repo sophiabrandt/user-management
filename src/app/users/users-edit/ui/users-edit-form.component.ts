@@ -240,7 +240,7 @@ export class UsersEditFormComponent implements OnInit {
 
   usersEditFormModel: User;
 
-  HttpRequestState = HttpRequestState;
+  readonly HttpRequestState = HttpRequestState;
 
   ngOnInit(): void {
     this.usersEditFormModel = this.user;

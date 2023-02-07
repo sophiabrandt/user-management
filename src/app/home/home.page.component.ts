@@ -24,7 +24,7 @@ import { UsersListComponent } from './ui/user-list/users-list.component';
 export class HomePageComponent implements OnInit {
   private store = inject(HomeStore);
 
-  HttpRequestState = HttpRequestState;
+  readonly HttpRequestState = HttpRequestState;
 
   readonly vm$ = combineLatest([
     this.store.users$,
