@@ -22,7 +22,7 @@ import { PocketBaseUser, User } from '../../../shared/interfaces/user';
     <div class="m-2">
       <form
         #form="ngForm"
-        (submit)="onSubmit(form)"
+        (ngSubmit)="onSubmit(form)"
         class="w-full max-w-xs users-edit-form center form form-control"
       >
         <div class="form-group">
