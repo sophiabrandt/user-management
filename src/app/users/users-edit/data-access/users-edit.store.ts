@@ -1,4 +1,5 @@
 import { inject, Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { ComponentStore, tapResponse } from '@ngrx/component-store';
 import { catchError, EMPTY, Observable, switchMap, tap } from 'rxjs';
 import { UsersService } from '../../../shared/data-access/users.service';
@@ -16,6 +17,8 @@ interface UsersEditState {
 export class UsersEditStore extends ComponentStore<UsersEditState> {
   private usersService = inject(UsersService);
 
+  private router = inject(Router);
+
   readonly httpRequestState$ = this.select((state) => state.httpRequestState);
 
   readonly editUser = this.effect(
@@ -27,10 +30,12 @@ export class UsersEditStore extends ComponentStore<UsersEditState> {
         switchMap((usersData) =>
           this.usersService.updateUserById(usersData).pipe(
             tapResponse(
-              () =>
+              () => {
                 this.patchState({
                   httpRequestState: HttpRequestState.SUCCESS,
-                }),
+                });
+                this.router.navigate(['/home']);
+              },
               (err) => {
                 console.error(err);
                 this.patchState({ httpRequestState: HttpRequestState.ERROR });
