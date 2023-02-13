@@ -6,7 +6,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   imports: [],
   template: `
     <header>
-      <nav class="navbar bg-sky-200">
+      <nav class="bg-sky-200 navbar">
         <div class="flex-1">
           <h1 class="text-lg dark:text-slate-500">User Management</h1>
         </div>
@@ -22,7 +22,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
             </label>
             <ul
               tabindex="0"
-              class="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52"
+              class="mt-3 w-52 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box"
             >
               <li><a>Settings</a></li>
               <li><a>Logout</a></li>

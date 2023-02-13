@@ -8,7 +8,7 @@ import { PocketBaseUser } from '../../../shared/interfaces/user';
   standalone: true,
   template: `
     <div class="overflow-x-auto cover">
-      <table class="table table-compact w-full">
+      <table class="table w-full table-compact">
         <thead>
           <tr>
             <th>Name</th>

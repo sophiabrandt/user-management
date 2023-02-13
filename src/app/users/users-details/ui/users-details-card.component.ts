@@ -9,9 +9,9 @@ import { PocketBaseUser } from '../../../shared/interfaces/user';
   template: `
     <div>
       <a [routerLink]="['/home']">
-        <button class="btn btn-active btn-accent m-4">&larr; Go back</button>
+        <button class="m-4 btn btn-active btn-accent">&larr; Go back</button>
       </a>
-      <div class="card center w-96 bg-accent-content/20 w-full shadow-xl">
+      <div class="w-96 w-full shadow-xl card center bg-accent-content/20">
         <figure class="px-10 pt-10">
           <img
             src="https://api.lorem.space/image/face?w=400&h=225"
@@ -21,15 +21,15 @@ import { PocketBaseUser } from '../../../shared/interfaces/user';
         </figure>
         <div class="card-body">
           <div class="items-center text-center">
-            <h2 class="card-title block mt-1">
+            <h2 class="mt-1 block card-title">
               {{ user.name + ' ' + user.surname }}
             </h2>
-            <div class="badge badge-secondary mt-1">
+            <div class="mt-1 badge badge-secondary">
               <span class="text-sm">{{ user.position }}</span>
             </div>
             <p class="mt-1">{{ user.location }}</p>
           </div>
-          <div class="card-actions justify-end">
+          <div class="justify-end card-actions">
             <a [routerLink]="['/users', user.id, 'edit']"
               ><button class="btn btn-primary">Edit</button></a
             >
