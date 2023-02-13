@@ -6,13 +6,14 @@ import { USER_EXAMPLE } from '../../../shared/interfaces/user';
 import { UsersEditFormComponent } from './users-edit-form.component';
 
 describe('UsersEditFormComponent', () => {
-  async function setup() {
+  async function setup(overwriteProps = {}) {
     const submitSpy = jest.fn();
     const { fixture } = await render(UsersEditFormComponent, {
       componentProperties: {
         user: USER_EXAMPLE,
         userEditState: HttpRequestState.PENDING,
         onSubmit: submitSpy,
+        ...overwriteProps,
       },
     });
     return {
@@ -104,6 +105,16 @@ describe('UsersEditFormComponent', () => {
     ).toBeInTheDocument();
     expect(
       screen.getByRole('alert', { name: /only valid email addresses/i })
+    ).toBeInTheDocument();
+  });
+
+  it('should show the error when saving changes does not work', async () => {
+    await setup({
+      userEditState: HttpRequestState.ERROR,
+    });
+
+    expect(
+      screen.getByRole('alert', { name: /error occurred/i })
     ).toBeInTheDocument();
   });
 });
