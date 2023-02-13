@@ -29,23 +29,35 @@ import { PocketBaseUser, User } from '../../../shared/interfaces/user';
           <label for="name" class="label">
             <span class="label-text">Name</span>
             <ng-container *ngIf="name.dirty && name.hasError('required')">
-              <span class="text-sm text-red-500">This field is required.</span>
+              <span
+                role="alert"
+                aria-label="required"
+                class="pr-2 pl-2 text-sm text-red-500"
+                >This field is required.</span
+              >
             </ng-container>
             <ng-container *ngIf="name.dirty && name.hasError('minlength')">
-              <span class="text-sm text-red-500"
+              <span
+                role="alert"
+                aria-label="min length of characters not yet reached"
+                class="pr-2 pl-2 text-sm text-red-500"
                 >Min
                 {{ name.getError('minlength').requiredLength }}
                 characters.</span
               >
             </ng-container>
             <ng-container *ngIf="name.dirty && name.hasError('pattern')">
-              <span class="text-sm text-red-500"
+              <span
+                role="alert"
+                aria-label="only letters are allowed"
+                class="pr-2 pl-2 text-sm text-red-500"
                 >Only letters are allowed.</span
               >
             </ng-container>
           </label>
           <input
             required
+            aria-required="true"
             minlength="2"
             pattern="^[a-zA-Z- ]+$"
             name="name"
@@ -61,25 +73,37 @@ import { PocketBaseUser, User } from '../../../shared/interfaces/user';
           <label for="surname" class="label">
             <span class="label-text">Last name</span>
             <ng-container *ngIf="surname.dirty && surname.hasError('required')">
-              <span class="text-sm text-red-500">This field is required.</span>
+              <span
+                role="alert"
+                aria-label="required"
+                class="pr-2 pl-2 text-sm text-red-500"
+                >This field is required.</span
+              >
             </ng-container>
             <ng-container
               *ngIf="surname.dirty && surname.hasError('minlength')"
             >
-              <span class="text-sm text-red-500"
+              <span
+                role="alert"
+                aria-label="min length of characters not yet reached"
+                class="pr-2 pl-2 text-sm text-red-500"
                 >Min
                 {{ surname.getError('minlength').requiredLength }}
                 characters.</span
               >
             </ng-container>
             <ng-container *ngIf="surname.dirty && surname.hasError('pattern')">
-              <span class="text-sm text-red-500"
+              <span
+                role="alert"
+                aria-label="only letters are allowed"
+                class="pr-2 pl-2 text-sm text-red-500"
                 >Only letters are allowed.</span
               >
             </ng-container>
           </label>
           <input
             required
+            aria-required="true"
             minlength="2"
             pattern="^[a-zA-Z- ]+$"
             name="surname"
@@ -95,16 +119,25 @@ import { PocketBaseUser, User } from '../../../shared/interfaces/user';
           <label for="email" class="label">
             <span class="label-text">Email</span>
             <ng-container *ngIf="email.dirty && email.hasError('required')">
-              <span class="text-sm text-red-500">This field is required.</span>
+              <span
+                role="alert"
+                aria-label="required"
+                class="pr-2 pl-2 text-sm text-red-500"
+                >This field is required.</span
+              >
             </ng-container>
             <ng-container *ngIf="email.dirty && email.hasError('email')">
-              <span class="text-sm text-red-500"
+              <span
+                role="alert"
+                aria-label="only valid email addresses"
+                class="pr-2 pl-2 text-sm text-red-500"
                 >Only valid email addresses.</span
               >
             </ng-container>
           </label>
           <input
             required
+            aria-required="true"
             email
             name="email"
             id="email"
@@ -121,12 +154,20 @@ import { PocketBaseUser, User } from '../../../shared/interfaces/user';
             <ng-container
               *ngIf="position.dirty && position.hasError('required')"
             >
-              <span class="text-sm text-red-500">This field is required.</span>
+              <span
+                role="alert"
+                aria-label="required"
+                class="pr-2 pl-2 text-sm text-red-500"
+                >This field is required.</span
+              >
             </ng-container>
             <ng-container
               *ngIf="position.dirty && position.hasError('minlength')"
             >
-              <span class="text-sm text-red-500"
+              <span
+                role="alert"
+                aria-label="required"
+                class="pr-2 pl-2 text-sm text-red-500"
                 >Min
                 {{ position.getError('minlength').requiredLength }}
                 characters.</span
@@ -135,13 +176,17 @@ import { PocketBaseUser, User } from '../../../shared/interfaces/user';
             <ng-container
               *ngIf="position.dirty && position.hasError('pattern')"
             >
-              <span class="text-sm text-red-500"
+              <span
+                role="alert"
+                aria-label="only letters are allowed"
+                class="pr-2 pl-2 text-sm text-red-500"
                 >Only letters are allowed.</span
               >
             </ng-container>
           </label>
           <input
             required
+            aria-required="true"
             minlength="2"
             pattern="^[a-zA-Z- ]+$"
             name="position"
@@ -159,12 +204,20 @@ import { PocketBaseUser, User } from '../../../shared/interfaces/user';
             <ng-container
               *ngIf="location.dirty && location.hasError('required')"
             >
-              <span class="text-sm text-red-500">This field is required.</span>
+              <span
+                role="alert"
+                aria-label="required"
+                class="pr-2 pl-2 text-sm text-red-500"
+                >This field is required.</span
+              >
             </ng-container>
             <ng-container
               *ngIf="location.dirty && location.hasError('minlength')"
             >
-              <span class="text-sm text-red-500"
+              <span
+                role="alert"
+                aria-label="min length of characters not yet reached"
+                class="pr-2 pl-2 text-sm text-red-500"
                 >Min
                 {{ location.getError('minlength').requiredLength }}
                 characters.</span
@@ -173,13 +226,17 @@ import { PocketBaseUser, User } from '../../../shared/interfaces/user';
             <ng-container
               *ngIf="location.dirty && location.hasError('pattern')"
             >
-              <span class="text-sm text-red-500"
+              <span
+                role="alert"
+                aria-label="only letters are allowed"
+                class="pr-2 pl-2 text-sm text-red-500"
                 >Only letters are allowed.</span
               >
             </ng-container>
           </label>
           <input
             required
+            aria-required="true"
             minlength="2"
             pattern="^[a-zA-Z- ]+$"
             name="location"

@@ -68,11 +68,42 @@ describe('UsersEditFormComponent', () => {
     await userEvent.click(submitButton);
     expect(submitSpy).not.toHaveBeenCalled();
 
+    expect(
+      screen.getByRole('textbox', { name: /name required/i })
+    ).toBeInTheDocument();
+
+    expect(
+      screen.getByRole('alert', { name: /required/i })
+    ).toBeInTheDocument();
+
     await userEvent.type(
-      screen.getByRole('textbox', { name: /field is required/i }),
+      screen.getByRole('textbox', { name: /name required/i }),
       'Jane'
     );
+
     await userEvent.click(submitButton);
     expect(submitSpy).toHaveBeenCalledTimes(1);
+  });
+
+  it('should show validation errors', async () => {
+    await setup();
+
+    const location = screen.getByRole('textbox', { name: /location/i });
+    await userEvent.clear(location);
+    await userEvent.type(location, '[[');
+
+    const email = screen.getByRole('textbox', { name: /email/i });
+    await userEvent.clear(email);
+    await userEvent.type(email, 'a');
+
+    expect(
+      screen.getByRole('alert', { name: /min length/i })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('alert', { name: /only letters/i })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('alert', { name: /only valid email addresses/i })
+    ).toBeInTheDocument();
   });
 });
