@@ -19,7 +19,7 @@ import { PocketBaseUser, User } from '../../../shared/interfaces/user';
   standalone: true,
   imports: [FormsModule, NgIf],
   template: `
-    <div class="m-2">
+    <div class="relative m-2">
       <form
         #form="ngForm"
         (ngSubmit)="onSubmit(form)"
@@ -262,7 +262,7 @@ import { PocketBaseUser, User } from '../../../shared/interfaces/user';
           <div
             role="alert"
             aria-label="error occurred"
-            class="shadow-lg alert alert-error form-group form-group--full-width"
+            class="absolute right-0 w-fit shadow-lg fade-in-out alert alert-error"
           >
             <div>
               <svg
@@ -312,6 +312,26 @@ import { PocketBaseUser, User } from '../../../shared/interfaces/user';
       }
       .ng-invalid.ng-dirty:not([ngModelGroup]):not(form) {
         border: 2px solid tomato;
+      }
+
+      .fade-in-out {
+        opacity: 0;
+        animation: fade-in 1s ease-in forwards, fade-out 4s 1s ease-out forwards;
+      }
+
+      @keyframes fade-in {
+        100% {
+          opacity: 1;
+        }
+      }
+
+      @keyframes fade-out {
+        0% {
+          opacity: 1;
+        }
+        100% {
+          opacity: 0;
+        }
       }
     `,
   ],
