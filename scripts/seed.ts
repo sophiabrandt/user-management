@@ -27,7 +27,7 @@ const checkCollection = async (): Promise<void> => {
       (coll) => coll.name === 'usrm_users'
     );
     if (!collectionExists) {
-      console.log('Creating a new collection!');
+      console.log('Creating a new collection 🚀!');
       await pb.collections.create({
         name: 'usrm_users',
         type: 'base',
@@ -38,11 +38,15 @@ const checkCollection = async (): Promise<void> => {
           { name: 'position', type: 'text' },
           { name: 'location', type: 'text' },
         ],
+        createRule: '',
+        deleteRule: '',
         listRule: '',
+        updateRule: '',
+        viewRule: '',
       });
     }
   } catch ({ message }) {
-    console.error(`Error creating table: ${message}`);
+    console.error(`❌ Error creating table: ${message}.!`);
     process.exit(1);
   }
 };
@@ -55,7 +59,7 @@ pb.admins
   })
   .then(checkCollection)
   .then(() => {
-    console.log('Seeding users!');
+    console.log('Seeding users 🤖!');
     const userPromises = [];
     for (let i = 0; i < 10; i++) {
       userPromises.push(
@@ -71,9 +75,9 @@ pb.admins
     return Promise.all(userPromises);
   })
   .then(() => {
-    console.log('Seeded usrm_users table with fake data');
+    console.log('Seeded usrm_users table with fake data 🌱!');
   })
   .catch(({ message }) => {
-    console.error(`Error seeding users: ${message}`);
+    console.error(`❌ Error seeding users: ${message}.`);
     process.exit(1);
   });
