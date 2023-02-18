@@ -10,6 +10,7 @@ describe('UsersService', () => {
     const pocketBaseMock = {
       collection: () => pocketBaseMock,
       getFullList: jest.fn().mockReturnValue(of([USER_EXAMPLE])),
+      getOne: jest.fn().mockReturnValue(of(USER_EXAMPLE)),
       update: jest.fn().mockReturnValue(of(USER_EXAMPLE)),
       ...overwriteMock,
     };
@@ -34,6 +35,16 @@ describe('UsersService', () => {
     expect(lastValueFrom(service.getAll())).resolves.toStrictEqual([
       USER_EXAMPLE,
     ]);
+    expect(spy).toHaveBeenCalledTimes(1);
+  }));
+
+  it('should fetch a user by id', fakeAsync(() => {
+    const { service } = setup();
+    const spy = jest.spyOn(service, 'getById');
+
+    expect(
+      lastValueFrom(service.getById(USER_EXAMPLE.id))
+    ).resolves.toStrictEqual(USER_EXAMPLE);
     expect(spy).toHaveBeenCalledTimes(1);
   }));
 

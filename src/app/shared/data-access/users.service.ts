@@ -42,7 +42,7 @@ export class UsersService {
     if (this.pb) {
       const userRecords: Promise<PocketBaseUser> = this.pb
         .collection('usrm_users')
-        .getFirstListItem(`id="${id}"`);
+        .getOne(id);
 
       return from(userRecords).pipe(
         shareReplay({ refCount: true, bufferSize: 1 }),
